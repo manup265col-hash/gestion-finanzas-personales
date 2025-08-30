@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Índice de Estudio — Gestión Finanzas Personales</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif; margin: 24px; line-height: 1.4; }
+      h1 { margin-bottom: 8px; }
+      p.note { color: #444; }
+      .grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); margin-top: 16px; }
+      .card { border: 1px solid #ddd; border-radius: 8px; padding: 12px 14px; background: #fff; }
+      .card h3 { margin: 0 0 8px; font-size: 16px; }
+      a { color: #0a5; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .path { color: #666; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; font-size: 12px; }
+      footer { margin-top: 24px; color: #666; font-size: 13px; }
+      ul { margin: 8px 0 0 16px; }
+    </style>
+  </head>
+  <body>
+    <h1>Índice de Estudio — Gestión Finanzas Personales</h1>
+    <p class="note">
+      Este índice apunta a los archivos Markdown de <code>docs/annotated/</code>.
+      Ábrelos directamente en tu editor (por ejemplo VS Code) o con vista previa Markdown.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Guía general</h3>
+        <div class="path">docs/annotated/README.md</div>
+        <ul>
+          <li><a href="README.md">README (índice y enlaces a docs del API)</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Backend — Core</h3>
+        <div class="path">docs/annotated/backend/</div>
+        <ul>
+          <li><a href="backend/settings.py.md">settings.py (configuración Django/Heroku/JWT/Static/Cloudinary)</a></li>
+          <li><a href="backend/urls.py.md">urls.py (rutas raíz, API y docs)</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Backend — Usuarios</h3>
+        <div class="path">docs/annotated/backend/users/</div>
+        <ul>
+          <li><a href="backend/users/models.py.md">models.py (User + profile_image)</a></li>
+          <li><a href="backend/users/api/serializers.py.md">serializers.py (alta/lectura/edición)</a></li>
+          <li><a href="backend/users/api/views.md">views.py (login, me, reset password, etc.)</a></li>
+          <li><a href="backend/users/api/router.py.md">router.py (endpoints /api/auth/...)</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Frontend — JS</h3>
+        <div class="path">docs/annotated/frontend/js/</div>
+        <ul>
+          <li><a href="frontend/js/config.js.md">config.js (API_BASE same-origin)</a></li>
+          <li><a href="frontend/js/index.js.md">index.js (login)</a></li>
+          <li><a href="frontend/js/profile.js.md">profile.js (perfil + foto)</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Frontend — HTML</h3>
+        <div class="path">docs/annotated/frontend/html/</div>
+        <ul>
+          <li><a href="frontend/html/index.html.md">index.html (login)</a></li>
+          <li><a href="frontend/html/profile.html.md">profile.html (perfil)</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <footer>
+      Sugerencia: en VS Code, usa Ctrl+P y pega una ruta como
+      <code>docs/annotated/backend/settings.py.md</code> para abrirla rápido.
+    </footer>
+  </body>
+</html>
+
