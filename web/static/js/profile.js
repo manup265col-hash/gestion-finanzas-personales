@@ -112,6 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       if(!res.ok) throw new Error("No autorizado");
       const data = await res.json();
+      // Usar el id para cache local de imagen
+      try { if (data && data.id) { userId = data.id; } } catch (_) {}
 
       document.getElementById("displayName").textContent = data.first_name;
 
