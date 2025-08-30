@@ -305,3 +305,9 @@ from pathlib import Path as _Path
 _frontend_dir = BASE_DIR.parent / 'web-Front'
 if _frontend_dir.exists() and _frontend_dir not in STATICFILES_DIRS:
     STATICFILES_DIRS.append(_frontend_dir)
+
+# Limpia entradas inexistentes para evitar warnings en collectstatic
+try:
+    STATICFILES_DIRS = [p for p in STATICFILES_DIRS if (p.exists() if isinstance(p, Path) else os.path.exists(p))]
+except Exception:
+    pass
