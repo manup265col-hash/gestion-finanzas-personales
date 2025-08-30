@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const profileIcon = document.getElementById('homeProfileIcon');
   const profileImage = document.getElementById('homeProfileImage');
+  let userId = null;
 
   // Mostrar icono por defecto
   const showIconFallback = () => {
@@ -46,6 +47,21 @@ document.addEventListener("DOMContentLoaded", () => {
           profileIcon.style.display = 'none';
         };
       } catch {
+        // Intentar cache local por userId
+        try {
+          const k = userId ? `profileImage:${userId}` : null;
+          if (k) {
+            const dataUrl = localStorage.getItem(k);
+            if (dataUrl) {
+              profileImage.src = dataUrl;
+              profileImage.onload = () => {
+                profileImage.style.display = 'block';
+                profileIcon.style.display = 'none';
+              };
+              return;
+            }
+          }
+        } catch(_) {}
         showIconFallback();
       }
     };
@@ -66,9 +82,25 @@ document.addEventListener("DOMContentLoaded", () => {
   })
   .then(res => { if (!res.ok) throw new Error("No autorizado"); return res.json(); })
   .then(data => {
+    try { if (data && data.id) userId = data.id; } catch(_) {}
     document.getElementById("username").textContent = data.first_name || "Usuario";
     if (data && data.profile_image) {
       setProfileImageFromUrl(data.profile_image);
+    } else {
+      // Si no hay URL remota, intenta cache local
+      try {
+        const k = userId ? `profileImage:${userId}` : null;
+        const dataUrl = k ? localStorage.getItem(k) : null;
+        if (dataUrl) {
+          profileImage.src = dataUrl;
+          profileImage.onload = () => {
+            profileImage.style.display = 'block';
+            profileIcon.style.display = 'none';
+          };
+        } else {
+          showIconFallback();
+        }
+      } catch(_) { showIconFallback(); }
     }
     // Mostrar botón Admin solo para staff/superuser
     try {
