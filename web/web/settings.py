@@ -304,13 +304,4 @@ try:
 except NameError:
     STATICFILES_DIRS = []
 # La carpeta web-Front está a nivel de proyecto (hermana de BASE_DIR)
-from pathlib import Path as _Path
-_frontend_dir = BASE_DIR.parent / 'web-Front'
-if _frontend_dir.exists() and _frontend_dir not in STATICFILES_DIRS:
-    STATICFILES_DIRS.append(_frontend_dir)
-
-# Limpia entradas inexistentes para evitar warnings en collectstatic
-try:
-    STATICFILES_DIRS = [p for p in STATICFILES_DIRS if (p.exists() if isinstance(p, Path) else os.path.exists(p))]
-except Exception:
-    pass
+"""Frontend estático en web/static; sin configuración extra"""
