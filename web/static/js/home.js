@@ -69,13 +69,31 @@ document.addEventListener("DOMContentLoaded", () => {
     if (data && data.profile_image) {
       setProfileImageFromUrl(data.profile_image);
     }
+    // Mostrar botón Admin solo para staff/superuser
+    try {
+      const adminBtn = document.getElementById('adminBtn');
+      if (adminBtn) {
+        const isAdmin = !!(data && (data.is_staff || data.is_superuser));
+        if (isAdmin) {
+          adminBtn.style.display = 'inline-block';
+          adminBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = `${window.location.origin}/admin/`;
+          });
+        } else {
+          adminBtn.style.display = 'none';
+        }
+      }
+    } catch (_) {}
   })
   .catch(err => { console.error("Error al cargar datos:", err); });
 
   // Logout
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
+    logoutBtn.addEventListener("click", (e) => {
+      try { e.preventDefault(); e.stopPropagation(); } catch(_) {}
       sessionStorage.removeItem("authToken");
       sessionStorage.removeItem("firstName");
       window.location.href = "index.html";
