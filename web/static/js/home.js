@@ -10,6 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const profileIcon = document.getElementById('homeProfileIcon');
   const profileImage = document.getElementById('homeProfileImage');
 
+  // Mostrar icono por defecto
+  const showIconFallback = () => {
+    if (profileImage) profileImage.style.display = 'none';
+    if (profileIcon) profileIcon.style.display = 'block';
+  };
+
   const resolveImageUrl = (raw) => {
     if (!raw) return null;
     const s = String(raw).trim();
@@ -22,11 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const setProfileImageFromUrl = async (rawUrl) => {
     const absUrl = resolveImageUrl(rawUrl);
     if (!absUrl) { showIconFallback(); return; }
-
-    const showIconFallback = () => {
-      if (profileImage) profileImage.style.display = 'none';
-      if (profileIcon) profileIcon.style.display = 'block';
-    };
 
     // Clean previous
     profileIcon.style.display = 'none';
