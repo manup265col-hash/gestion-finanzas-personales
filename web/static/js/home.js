@@ -69,19 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (data && data.profile_image) {
       setProfileImageFromUrl(data.profile_image);
     }
-    // Mostrar botón Admin solo si es staff o superusuario
-    try {
-      const adminBtn = document.getElementById('adminBtn');
-      if (adminBtn) {
-        const isAdmin = !!(data && (data.is_staff || data.is_superuser));
-        if (isAdmin) {
-          adminBtn.style.display = 'inline-block';
-          adminBtn.setAttribute('href', `${window.location.origin}/admin/`);
-        } else {
-          adminBtn.remove();
-        }
-      }
-    } catch (_) {}
   })
   .catch(err => { console.error("Error al cargar datos:", err); });
 
