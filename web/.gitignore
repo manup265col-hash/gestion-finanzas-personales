@@ -3,7 +3,8 @@ db.sqlite3
 db.sqlite3-journal
 media/
 staticfiles/
-static/
+# static/ (track frontend assets under web/static)
+# static/
 
 # Python
 __pycache__/
