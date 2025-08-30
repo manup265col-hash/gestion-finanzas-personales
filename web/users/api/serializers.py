@@ -13,6 +13,9 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     Permite recibir y guardar la imagen de perfil junto con los demás datos.
     """
     password = serializers.CharField(write_only=True, min_length=8)  # Contraseña solo escritura
+    # Exponer banderas de administración para el frontend (solo lectura)
+    is_staff = serializers.BooleanField(read_only=True)
+    is_superuser = serializers.BooleanField(read_only=True)
     profile_image = serializers.ImageField(required=False)  # Campo para la imagen de perfil (opcional)
 
     class Meta:
@@ -27,6 +30,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             'phone',
             'country',
             'profile_image',  # Añadimos la imagen en los campos que se aceptan
+            'is_staff',       # Solo lectura
+            'is_superuser',   # Solo lectura
         )
         extra_kwargs = {
             'birthday': {'required': True},
