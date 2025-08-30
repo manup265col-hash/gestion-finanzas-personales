@@ -246,6 +246,9 @@ if not DEBUG:
     # Así, referencias directas en HTML como /static/css/estilos.css no 404.
     STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
+# Permite a WhiteNoise servir archivos desde los finders aunque STATIC_ROOT esté vacío
+WHITENOISE_USE_FINDERS = True
+
 # Seguridad detrás de proxy (Heroku)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
