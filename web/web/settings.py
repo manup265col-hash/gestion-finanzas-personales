@@ -198,14 +198,28 @@ AUTH_USER_MODEL = 'users.User'  # Modelo de usuario personalizado
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # DEFAULT_FROM_EMAIL = 'webmaster@localhost'
 
-# Para producción (Gmail SMTP)
+# Para producción (SMTP). Por defecto Gmail, pero soporta SendGrid si está configurado
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER')       # Usuario SMTP desde variable de entorno
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')   # Contraseña SMTP desde variable de entorno
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# Asegurar un remitente por defecto definido
+DEFAULT_FROM_EMAIL = os.environ.get(
+    'DEFAULT_FROM_EMAIL',
+    EMAIL_HOST_USER or f"no-reply@{os.environ.get('HEROKU_APP_NAME', 'localhost')}.herokuapp.com"
+)
+
+# Soporte opcional para SendGrid (Heroku addon)
+if os.environ.get('SENDGRID_API_KEY'):
+    EMAIL_HOST = 'smtp.sendgrid.net'
+    EMAIL_HOST_USER = 'apikey'
+    EMAIL_HOST_PASSWORD = os.environ['SENDGRID_API_KEY']
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    # Mantener DEFAULT_FROM_EMAIL si viene del entorno
+    DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', DEFAULT_FROM_EMAIL)
 
 # ======================================================
 # CAMPO POR DEFECTO PARA PK
