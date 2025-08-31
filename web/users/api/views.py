@@ -168,7 +168,7 @@ class PasswordResetRequestView(APIView):
             message=f"Tu cÃƒÂ³digo de recuperaciÃƒÂ³n es: {token}",
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[email],
-            fail_silently=False  # Lanza error si no se puede enviar
+            fail_silently=True  # Evita 500 en producción si SMTP falla; siempre devolvemos JSON
         )
 
         return Response({"message": "Se ha enviado un cÃƒÂ³digo al correo."}, status=200)
