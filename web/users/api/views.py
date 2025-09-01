@@ -28,6 +28,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db import transaction
 from .utils import approve_signup_and_send_code
 from django.core.files.storage import default_storage
+from django.utils import timezone
 
 # -----------------------------------------------------------
 # VISTA DE REGISTRO DE USUARIO
