@@ -7,12 +7,14 @@ from rest_framework.response import Response  # Para devolver respuestas JSON
 from users.api.serializers import (
     UserRegisterSerializer, UserUpdateSerializer,
     PasswordResetRequestSerializer, PasswordResetVerifySerializer,
-    PasswordResetConfirmSerializer
+    PasswordResetConfirmSerializer,
+    SignupRequestSerializer, SignupVerifySerializer,
 )
 from rest_framework.permissions import IsAuthenticated, AllowAny  # Permisos para vistas
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from users.models import User, PasswordResetToken  # Modelos de usuario y token
+from users.models import PasswordResetCode, PendingSignup
 from django.core.mail import send_mail  # Para enviar emails
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -69,6 +71,112 @@ class RegisterView(APIView):
             serializer.save()  # Guarda el usuario en la base de datos
             return Response(serializer.data, status=status.HTTP_201_CREATED)  # Responde con datos del usuario
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# -----------------------------------------------------------
+# SOLICITUD DE REGISTRO (envía código al admin)
+# -----------------------------------------------------------
+class SignupRequestView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        s = SignupRequestSerializer(data=request.data)
+        s.is_valid(raise_exception=True)
+
+        data = s.validated_data
+        email = data["email"].lower()
+
+        if User.objects.filter(email=email).exists():
+            return Response({"error": "Ya existe un usuario con ese correo."}, status=400)
+
+        extra = {
+            "password": data["password"],
+            "birthday": str(data["birthday"]),
+            "phone": data["phone"],
+            "country": data["country"],
+        }
+        pending, created = PendingSignup.objects.get_or_create(
+            email=email,
+            defaults={
+                "first_name": data.get("first_name", ""),
+                "last_name": data.get("last_name", ""),
+                "extra_info": extra,
+            },
+        )
+        if not created:
+            pending.first_name = data.get("first_name", "")
+            pending.last_name = data.get("last_name", "")
+            pending.extra_info = extra
+            pending.save()
+
+        import random
+        code = str(random.randint(10000000, 99999999))
+        PasswordResetCode.objects.create(
+            user_email=email,
+            code=code,
+            purpose="signup",
+            expires_at=timezone.now() + timezone.timedelta(minutes=30),
+        )
+
+        admin_email = getattr(settings, "ADMIN_SIGNUP_EMAIL", "giraldovnelson@gmail.com")
+        body = (
+            "Nueva solicitud de registro\n\n"
+            f"Email: {email}\n"
+            f"Nombre: {pending.first_name} {pending.last_name}\n"
+            f"Telefono: {extra['phone']}\n"
+            f"Pais: {extra['country']}\n"
+            f"Cumpleanos: {extra['birthday']}\n\n"
+            f"Codigo de verificacion (compartir al solicitante): {code}\n"
+        )
+        send_mail(
+            subject="Nueva solicitud de registro",
+            message=body,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[admin_email],
+            fail_silently=True,
+        )
+
+        return Response({"message": "Solicitud enviada. Espera el codigo del administrador."}, status=200)
+
+
+# -----------------------------------------------------------
+# VERIFICAR CÓDIGO DE REGISTRO Y CREAR CUENTA
+# -----------------------------------------------------------
+class SignupVerifyView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        s = SignupVerifySerializer(data=request.data)
+        s.is_valid(raise_exception=True)
+        email = s.validated_data["email"].lower()
+        token = s.validated_data["token"]
+
+        try:
+            pending = PendingSignup.objects.get(email=email)
+        except PendingSignup.DoesNotExist:
+            return Response({"error": "No hay una solicitud pendiente para este correo."}, status=404)
+
+        prc = PasswordResetCode.objects.filter(user_email=email, code=token, purpose="signup").order_by("-created_at").first()
+        if not prc or not prc.is_valid():
+            return Response({"error": "Codigo invalido o expirado."}, status=400)
+
+        extra = pending.extra_info or {}
+        user = User(
+            email=email,
+            first_name=pending.first_name or "",
+            last_name=pending.last_name or "",
+            birthday=extra.get("birthday", "2000-01-01"),
+            phone=extra.get("phone", "0000000000"),
+            country=extra.get("country", "Unknown"),
+        )
+        pwd = extra.get("password") or "changeme12345"
+        user.set_password(pwd)
+        user.save()
+
+        prc.delete()
+        pending.delete()
+
+        return Response({"message": "Cuenta creada correctamente. Ya puedes iniciar sesion."}, status=200)
 
 
 # -----------------------------------------------------------

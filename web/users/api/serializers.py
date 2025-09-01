@@ -148,3 +148,21 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
     email = serializers.EmailField()
     token = serializers.CharField(max_length=8)
     new_password = serializers.CharField(min_length=8)
+
+
+# -----------------------------------------------------------
+# SERIALIZERS PARA REGISTRO CON APROBACIÓN
+# -----------------------------------------------------------
+class SignupRequestSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(min_length=8)
+    birthday = serializers.DateField()
+    phone = serializers.CharField(max_length=20)
+    country = serializers.CharField(max_length=50)
+    first_name = serializers.CharField(max_length=150, required=False, allow_blank=True)
+    last_name = serializers.CharField(max_length=150, required=False, allow_blank=True)
+
+
+class SignupVerifySerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    token = serializers.CharField(max_length=8)

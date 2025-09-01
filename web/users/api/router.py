@@ -3,6 +3,7 @@ from users.api.views import (
     RegisterView, userView,
     PasswordResetRequestView, PasswordResetVerifyView, PasswordResetConfirmView,
     LogoutView, UserInfoView, LoginView, RefreshView, approve_signup_view,
+    SignupRequestView, SignupVerifyView,
 )
 
 urlpatterns = [
@@ -26,4 +27,7 @@ urlpatterns = [
     path('auth/password-reset-confirm/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     # Aprobación de registro pendiente
     path("approve-signup/<str:token>/", approve_signup_view, name="approve-signup"),
+    # Registro con verificacion por admin
+    path('auth/signup-request/', SignupRequestView.as_view(), name='signup_request'),
+    path('auth/signup-verify/', SignupVerifyView.as_view(), name='signup_verify'),
 ]
