@@ -178,7 +178,6 @@ class PasswordResetRequestView(APIView):
             pass
         
         return Response({"message": "Te enviamos un codigo de verificacion a tu correo."}, status=200)
-        return Response({" message\: \Te enviamos un codigo de verificacion a tu correo.\}, status=200)
 
 # -----------------------------------------------------------
 # VERIFICACIÃƒÆ’Ã¢â‚¬Å“N DE TOKEN DE RECUPERACIÃƒÆ’Ã¢â‚¬Å“N
