@@ -169,7 +169,7 @@ class PasswordResetRequestView(APIView):
         # Envia correo real usando SMTP configurado en settings.py
         send_mail(
             subject="Recuperacion de contrasena - Gestion finanzas personales",
-            message=f"Tu codigo de verificacion es: {token} \\nSi no solicitaste este cambio, ignora este correo.",
+            message=f"Tu codigo de verificacion es: {token} (valido por 15 minutos). Si no solicitaste este cambio, ignora este correo.",
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[email],
             fail_silently=True  # Evita 500 en produccion si SMTP falla; siempre devolvemos JSON
