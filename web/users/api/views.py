@@ -1,6 +1,6 @@
 # -*- coding: latin-1 -*-
-# Importamos librerÃ­as necesarias
-import random  # Para generar cÃ³digos aleatorios de recuperaciÃ³n
+# Importamos librerÃƒÆ’Ã‚Â­as necesarias
+import random  # Para generar cÃƒÆ’Ã‚Â³digos aleatorios de recuperaciÃƒÆ’Ã‚Â³n
 from rest_framework import status, permissions  # Para respuestas HTTP y permisos
 from rest_framework.views import APIView  # Para crear vistas basadas en clases
 from rest_framework.response import Response  # Para devolver respuestas JSON
@@ -19,7 +19,7 @@ from django.template.loader import render_to_string
 from django.conf import settings  # Para acceder a configuraciones (ej. email)
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken, OutstandingToken, BlacklistedToken
-from rest_framework.parsers import MultiPartParser, FormParser, JSONParser  # Necesario para manejar imÃ¡genes
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser  # Necesario para manejar imÃƒÆ’Ã‚Â¡genes
 
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -36,16 +36,16 @@ class RegisterView(APIView):
     Permite subir imagen de perfil usando multipart/form-data.
     """
     permission_classes = [AllowAny]  # Cualquiera puede acceder
-    parser_classes = [MultiPartParser, FormParser]  # Soporte para envÃ­o de archivos e imÃ¡genes
+    parser_classes = [MultiPartParser, FormParser]  # Soporte para envÃƒÆ’Ã‚Â­o de archivos e imÃƒÆ’Ã‚Â¡genes
 
     @swagger_auto_schema(
         operation_summary='Registro de usuario',
         tags=['Auth'],
-        operation_description='Crea un usuario nuevo. Envía multipart/form-data si incluye profile_image, o JSON si no envía archivo.',
+        operation_description='Crea un usuario nuevo. EnvÃƒÂ­a multipart/form-data si incluye profile_image, o JSON si no envÃƒÂ­a archivo.',
         consumes=['multipart/form-data', 'application/json'],
         manual_parameters=[
             openapi.Parameter('email', openapi.IN_FORM, type=openapi.TYPE_STRING, required=True, description='Correo'),
-            openapi.Parameter('password', openapi.IN_FORM, type=openapi.TYPE_STRING, required=True, description='Contraseña'),
+            openapi.Parameter('password', openapi.IN_FORM, type=openapi.TYPE_STRING, required=True, description='ContraseÃƒÂ±a'),
             openapi.Parameter('birthday', openapi.IN_FORM, type=openapi.TYPE_STRING, required=True, description='YYYY-MM-DD'),
             openapi.Parameter('first_name', openapi.IN_FORM, type=openapi.TYPE_STRING, required=False),
             openapi.Parameter('last_name', openapi.IN_FORM, type=openapi.TYPE_STRING, required=False),
@@ -65,7 +65,7 @@ class RegisterView(APIView):
         Maneja la solicitud POST para registrar un nuevo usuario.
         """
         serializer = UserRegisterSerializer(data=request.data, context={'request': request})  # Crea serializer con datos recibidos
-        if serializer.is_valid(raise_exception=True):  # Valida datos, lanza excepciÃ³n si no son vÃ¡lidos
+        if serializer.is_valid(raise_exception=True):  # Valida datos, lanza excepciÃƒÆ’Ã‚Â³n si no son vÃƒÆ’Ã‚Â¡lidos
             serializer.save()  # Guarda el usuario en la base de datos
             return Response(serializer.data, status=status.HTTP_201_CREATED)  # Responde con datos del usuario
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -76,10 +76,10 @@ class RegisterView(APIView):
 # -----------------------------------------------------------
 class userView(APIView):
     """
-    Vista para obtener y actualizar informaciÃ³n del usuario autenticado.
+    Vista para obtener y actualizar informaciÃƒÆ’Ã‚Â³n del usuario autenticado.
     """
     permission_classes = [IsAuthenticated]  # Solo usuarios logueados
-    parser_classes = [MultiPartParser, FormParser]  # Soporta envío de archivos para profile_image
+    parser_classes = [MultiPartParser, FormParser]  # Soporta envÃƒÂ­o de archivos para profile_image
 
     @swagger_auto_schema(operation_summary='Perfil del usuario (detalle)', tags=['Usuarios'],
                         responses={200: openapi.Response('OK', examples={'application/json': {
@@ -94,7 +94,7 @@ class userView(APIView):
                         }})})
     def get(self, request):
         """
-        Devuelve informaciÃ³n del usuario autenticado.
+        Devuelve informaciÃƒÆ’Ã‚Â³n del usuario autenticado.
         """
         serializer = UserRegisterSerializer(request.user, context={'request': request})  # Serializa datos del usuario
         return Response(serializer.data)  # Devuelve datos serializados en formato JSON
@@ -116,7 +116,7 @@ class userView(APIView):
         Actualiza datos del usuario, incluyendo imagen de perfil.
         """
         user = User.objects.get(id=request.user.id)  # Busca el usuario autenticado en BD
-        serializer = UserUpdateSerializer(user, data=request.data, partial=True)  # Permite actualizaciÃ³n parcial
+        serializer = UserUpdateSerializer(user, data=request.data, partial=True)  # Permite actualizaciÃƒÆ’Ã‚Â³n parcial
         if serializer.is_valid(raise_exception=True):  # Valida datos enviados
             serializer.save()  # Guarda cambios en la base de datos
             return Response(UserUpdateSerializer(user, context={'request': request}).data)  # Devuelve datos actualizados con URL absoluta
@@ -127,17 +127,17 @@ class userView(APIView):
 # DEBUG: INFO DE STORAGE
 # -----------------------------------------------------------
 """
-Nota: Se eliminaron las vistas de diagn�stico usadas durante la integraci�n
-de Cloudinary y el debug de despliegue para mantener el c�digo limpio.
+Nota: Se eliminaron las vistas de diagnÃ³stico usadas durante la integraciÃ³n
+de Cloudinary y el debug de despliegue para mantener el cÃ³digo limpio.
 """
 
 
 # -----------------------------------------------------------
-# SOLICITUD DE RESET DE CONTRASEÃ‘A
+# SOLICITUD DE RESET DE CONTRASEÃƒÆ’Ã¢â‚¬ËœA
 # -----------------------------------------------------------
 class PasswordResetRequestView(APIView):
     """
-    EnvÃ­a un cÃ³digo al correo para poder restablecer la contraseÃ±a.
+    EnvÃƒÆ’Ã‚Â­a un cÃƒÆ’Ã‚Â³digo al correo para poder restablecer la contraseÃƒÆ’Ã‚Â±a.
     """
     permission_classes = [AllowAny]  # Cualquiera puede solicitarlo
 
@@ -159,34 +159,33 @@ class PasswordResetRequestView(APIView):
         except User.DoesNotExist:
             return Response({"error": "No existe un usuario con ese correo."}, status=404)
 
-        # Genera cÃ³digo aleatorio de 6 dÃ­gitos
+        # Genera cÃƒÆ’Ã‚Â³digo aleatorio de 6 dÃƒÆ’Ã‚Â­gitos
         token = str(random.randint(10000000, 99999999))
 
         # Crea registro de token para ese usuario
         PasswordResetToken.objects.create(user=user, token=token)
-
-        # Envia correo real usando SMTP configurado en settings.py
-        # Construir y enviar correo en texto y HTML usando templates
-context = {"email": email, "token": token, "valid_minutes": 10, "app_name": "Gestion Finanzas Personales"}
-subject = "Codigo de verificacion para restablecer tu contrasena"
-text_body = render_to_string("emails/password_reset.txt", context)
-html_body = render_to_string("emails/password_reset.html", context)
-msg = EmailMultiAlternatives(subject=subject, body=text_body, from_email=settings.DEFAULT_FROM_EMAIL, to=[email])
-msg.attach_alternative(html_body, "text/html")
-try:
-    msg.send(fail_silently=True)
-except Exception:
-    pass
-
-        return Response({"message": "Se ha enviado un cÃ³digo al correo."}, status=200)
-
+        
+        # Enviar correo con plantilla (texto + HTML)
+        context = {"email": email, "token": token, "valid_minutes": 10, "app_name": "Gestion Finanzas Personales"}
+        subject = "Codigo de verificacion para restablecer tu contrasena"
+        text_body = render_to_string("emails/password_reset.txt", context)
+        html_body = render_to_string("emails/password_reset.html", context)
+        msg = EmailMultiAlternatives(subject=subject, body=text_body, from_email=settings.DEFAULT_FROM_EMAIL, to=[email])
+        msg.attach_alternative(html_body, "text/html")
+        try:
+            msg.send(fail_silently=True)
+        except Exception:
+            pass
+        
+        return Response({"message": "Te enviamos un codigo de verificacion a tu correo."}, status=200)
+        return Response({" message\: \Te enviamos un codigo de verificacion a tu correo.\}, status=200)
 
 # -----------------------------------------------------------
-# VERIFICACIÃ“N DE TOKEN DE RECUPERACIÃ“N
+# VERIFICACIÃƒÆ’Ã¢â‚¬Å“N DE TOKEN DE RECUPERACIÃƒÆ’Ã¢â‚¬Å“N
 # -----------------------------------------------------------
 class PasswordResetVerifyView(APIView):
     """
-    Verifica que el token enviado al correo sea vÃ¡lido.
+    Verifica que el token enviado al correo sea vÃƒÆ’Ã‚Â¡lido.
     """
     permission_classes = [AllowAny]
 
@@ -199,11 +198,11 @@ class PasswordResetVerifyView(APIView):
 
         try:
             user = User.objects.get(email=email)  # Busca usuario
-            reset_token = PasswordResetToken.objects.filter(user=user, token=token).last()  # Busca Ãºltimo token
+            reset_token = PasswordResetToken.objects.filter(user=user, token=token).last()  # Busca ÃƒÆ’Ã‚Âºltimo token
         except User.DoesNotExist:
             return Response({"error": "Usuario no encontrado."}, status=404)
 
-        # Comprueba si token sigue siendo vÃ¡lido
+        # Comprueba si token sigue siendo vÃƒÆ’Ã‚Â¡lido
         if reset_token and reset_token.is_valid():
             return Response({"valid": True}, status=200)
 
@@ -211,11 +210,11 @@ class PasswordResetVerifyView(APIView):
 
 
 # -----------------------------------------------------------
-# CONFIRMAR Y CAMBIAR CONTRASEÃ‘A
+# CONFIRMAR Y CAMBIAR CONTRASEÃƒÆ’Ã¢â‚¬ËœA
 # -----------------------------------------------------------
 class PasswordResetConfirmView(APIView):
     """
-    Permite establecer nueva contraseÃ±a si el token es vÃ¡lido.
+    Permite establecer nueva contraseÃƒÆ’Ã‚Â±a si el token es vÃƒÆ’Ã‚Â¡lido.
     """
     permission_classes = [AllowAny]
 
@@ -246,7 +245,7 @@ class PasswordResetConfirmView(APIView):
             return Response({"error": "Usuario no encontrado."}, status=404)
 
         if reset_token and reset_token.is_valid():
-            user.set_password(new_password)  # Cambia contraseÃ±a
+            user.set_password(new_password)  # Cambia contraseÃƒÆ’Ã‚Â±a
             user.save()
 
             # Revoca todos los tokens JWT anteriores para cerrar sesiones activas
@@ -255,9 +254,9 @@ class PasswordResetConfirmView(APIView):
 
             # Elimina token usado
             reset_token.delete()
-            return Response({"message": "ContraseÃ±a actualizada y sesiones cerradas."}, status=200)
+            return Response({"message": "ContraseÃƒÆ’Ã‚Â±a actualizada y sesiones cerradas."}, status=200)
 
-        return Response({"error": "Token invÃ¡lido o expirado."}, status=400)
+        return Response({"error": "Token invÃƒÆ’Ã‚Â¡lido o expirado."}, status=400)
 
 
 # -----------------------------------------------------------
@@ -265,7 +264,7 @@ class PasswordResetConfirmView(APIView):
 # -----------------------------------------------------------
 class LoginView(TokenObtainPairView):
     """
-    Genera par de tokens (access y refresh) al iniciar sesiÃ³n.
+    Genera par de tokens (access y refresh) al iniciar sesiÃƒÆ’Ã‚Â³n.
     """
     permission_classes = [AllowAny]
 
@@ -335,7 +334,7 @@ class RefreshView(TokenRefreshView):
 # -----------------------------------------------------------
 class LogoutView(APIView):
     """
-    Revoca tokens JWT para cerrar sesiÃ³n del usuario.
+    Revoca tokens JWT para cerrar sesiÃƒÆ’Ã‚Â³n del usuario.
     """
     permission_classes = [permissions.IsAuthenticated]
 
@@ -345,7 +344,7 @@ class LogoutView(APIView):
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={'refresh': openapi.Schema(type=openapi.TYPE_STRING)},
-            description='Opcional: si no se envÃ­a refresh, se revocan todos los tokens del usuario.'
+            description='Opcional: si no se envÃƒÆ’Ã‚Â­a refresh, se revocan todos los tokens del usuario.'
         )
     )
     def post(self, request):
@@ -353,10 +352,10 @@ class LogoutView(APIView):
             refresh_token = request.data.get("refresh", None)  # Obtiene token refresh enviado
             if refresh_token:
                 token = RefreshToken(refresh_token)
-                token.blacklist()  # Revoca token especÃ­fico
+                token.blacklist()  # Revoca token especÃƒÆ’Ã‚Â­fico
                 return Response({"detail": "Logout exitoso (refresh token revocado)."}, status=status.HTTP_205_RESET_CONTENT)
             
-            # Si no se envÃ­a refresh, revoca todos los tokens del usuario
+            # Si no se envÃƒÆ’Ã‚Â­a refresh, revoca todos los tokens del usuario
             tokens = OutstandingToken.objects.filter(user=request.user)
             for token in tokens:
                 BlacklistedToken.objects.get_or_create(token=token)
@@ -367,11 +366,11 @@ class LogoutView(APIView):
 
 
 # -----------------------------------------------------------
-# VISTA DE INFORMACIÃ“N BÃSICA DEL USUARIO
+# VISTA DE INFORMACIÃƒÆ’Ã¢â‚¬Å“N BÃƒÆ’Ã‚ÂSICA DEL USUARIO
 # -----------------------------------------------------------
 class UserInfoView(APIView):
     """
-    Devuelve informaciÃ³n bÃ¡sica del usuario autenticado.
+    Devuelve informaciÃƒÆ’Ã‚Â³n bÃƒÆ’Ã‚Â¡sica del usuario autenticado.
     """
     permission_classes = [permissions.IsAuthenticated]
 
@@ -409,16 +408,16 @@ def _is_superuser(user):
 @transaction.atomic
 def approve_signup_view(request, token: str):
     """
-    Endpoint al que llega el botÃ³n 'Aceptar solicitud'.
-    Requiere que el usuario estÃ© autenticado y sea superusuario.
+    Endpoint al que llega el botÃƒÆ’Ã‚Â³n 'Aceptar solicitud'.
+    Requiere que el usuario estÃƒÆ’Ã‚Â© autenticado y sea superusuario.
     """
     if request.method != "GET":
-        return HttpResponseBadRequest("MÃ©todo no permitido.")
+        return HttpResponseBadRequest("MÃƒÆ’Ã‚Â©todo no permitido.")
     try:
         approve_signup_and_send_code(token)
     except Exception as e:
         return HttpResponseBadRequest(f"Error: {e}")
-    return HttpResponse("Solicitud aprobada y cÃ³digo enviado al solicitante.")
+    return HttpResponse("Solicitud aprobada y cÃƒÆ’Ã‚Â³digo enviado al solicitante.")
 
 
 
