@@ -100,7 +100,7 @@ class PasswordResetToken(models.Model):
     Modelo para almacenar tokens temporales de recuperación de contraseña.
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # Relación con el usuario
-    token = models.CharField(max_length=6)  # Ejemplo: "123456"
+    token = models.CharField(max_length=8)  # Ejemplo: "12345678"
     created_at = models.DateTimeField(auto_now_add=True)  # Se guarda automáticamente al crear
 
     def is_valid(self):

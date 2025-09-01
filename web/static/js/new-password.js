@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const API_BASE = window.API_BASE || "https://pagina-web-finansas-b6474cfcee14.herokuapp.com";
+  const API_BASE = window.API_BASE || window.location.origin;
   const API_URL = `${API_BASE}/api/auth/password-reset-confirm/`;
   const form = document.getElementById("newPassForm");
   const messageDiv = document.getElementById("message");
@@ -13,18 +13,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!newPassword || !confirmPassword || !email || !token) {
       messageDiv.style.color = "red";
-      messageDiv.textContent = "Faltan datos para cambiar la contraseña";
+      messageDiv.textContent = "Faltan datos para cambiar la contrasena";
       return;
     }
 
     if (newPassword !== confirmPassword) {
       messageDiv.style.color = "red";
-      messageDiv.textContent = "❌ Las contraseñas no coinciden";
+      messageDiv.textContent = "Error: Las contrasenas no coinciden";
       return;
     }
 
     messageDiv.style.color = "black";
-    messageDiv.textContent = "Cambiando contraseña...";
+    messageDiv.textContent = "Cambiando contrasena...";
 
     try {
       const response = await fetch(API_URL, {
@@ -40,21 +40,21 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         const text = await response.text();
         console.error("Respuesta no JSON:", text);
-        throw new Error("El servidor respondió HTML, revisa la URL o la configuración del servidor.");
+        throw new Error("El servidor respondio HTML; revisa la URL o la configuracion del servidor.");
       }
 
       if (response.ok) {
         messageDiv.style.color = "green";
-        messageDiv.textContent = "✅ Contraseña cambiada correctamente. Redirigiendo a login...";
+        messageDiv.textContent = "Listo. Contrasena cambiada correctamente. Redirigiendo a login...";
         setTimeout(() => { window.location.href = "index.html"; }, 2000);
       } else {
         messageDiv.style.color = "red";
-        messageDiv.textContent = "❌ " + (data.error || "Error cambiando contraseña");
+        messageDiv.textContent = "Error: " + (data.error || "Error cambiando la contrasena");
       }
 
     } catch (err) {
       messageDiv.style.color = "red";
-      messageDiv.textContent = "❌ Error de conexión: " + err.message;
+      messageDiv.textContent = "Error de conexion: " + err.message;
     }
   });
 });

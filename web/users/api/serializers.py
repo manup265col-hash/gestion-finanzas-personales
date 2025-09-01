@@ -138,7 +138,7 @@ class PasswordResetVerifySerializer(serializers.Serializer):
     Serializer para verificar código enviado al correo.
     """
     email = serializers.EmailField()
-    token = serializers.CharField(max_length=6)
+    token = serializers.CharField(max_length=8)
 
 
 class PasswordResetConfirmSerializer(serializers.Serializer):
@@ -146,5 +146,5 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
     Serializer para confirmar el cambio de contraseña.
     """
     email = serializers.EmailField()
-    token = serializers.CharField(max_length=6)
+    token = serializers.CharField(max_length=8)
     new_password = serializers.CharField(min_length=8)

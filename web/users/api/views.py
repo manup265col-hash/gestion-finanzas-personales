@@ -157,7 +157,7 @@ class PasswordResetRequestView(APIView):
             return Response({"error": "No existe un usuario con ese correo."}, status=404)
 
         # Genera cÃƒÂ³digo aleatorio de 6 dÃƒÂ­gitos
-        token = str(random.randint(100000, 999999))
+        token = str(random.randint(10000000, 99999999))
 
         # Crea registro de token para ese usuario
         PasswordResetToken.objects.create(user=user, token=token)
@@ -218,7 +218,7 @@ class PasswordResetConfirmView(APIView):
             required=['email','token','new_password'],
             properties={
                 'email': openapi.Schema(type=openapi.TYPE_STRING, example='user@mail.com'),
-                'token': openapi.Schema(type=openapi.TYPE_STRING, example='123456'),
+                'token': openapi.Schema(type=openapi.TYPE_STRING, example='12345678'),
                 'new_password': openapi.Schema(type=openapi.TYPE_STRING, example='newPass123')
             }
         ),

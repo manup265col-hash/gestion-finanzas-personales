@@ -1,4 +1,4 @@
-const API_BASE = window.API_BASE || "https://pagina-web-finansas-b6474cfcee14.herokuapp.com";
+const API_BASE = window.API_BASE || window.location.origin;
 const API_URL = `${API_BASE}/api/auth/password-reset/`;
 const form = document.getElementById("resetForm");
 const messageDiv = document.getElementById("message");
@@ -8,11 +8,11 @@ form.addEventListener("submit", async (e) => {
   const email = document.getElementById("usuario").value.trim();
 
   if (!email) {
-    showMessage("Por favor ingresa un correo válido", "red");
+    showMessage("Por favor ingresa un correo valido", "red");
     return;
   }
 
-  showMessage("Enviando código...", "black");
+  showMessage("Enviando codigo...", "black");
 
   try {
     const response = await fetch(API_URL, {
@@ -28,14 +28,14 @@ form.addEventListener("submit", async (e) => {
 
     if (response.ok) {
       sessionStorage.setItem("resetEmail", email);
-      showMessage("✅ Te enviamos un código de verificación a tu correo", "green");
+      showMessage("Listo. Te enviamos un codigo de verificacion a tu correo", "green");
       setTimeout(() => { window.location.href = "verify-code.html"; }, 1500);
     } else {
-      showMessage("❌ " + (data.detail || data.error || "Error enviando correo"), "red");
+      showMessage("Error: " + (data.detail || data.error || "Error enviando correo"), "red");
     }
 
   } catch (err) {
-    showMessage("❌ Error de conexión: " + err.message, "red");
+    showMessage("Error de conexion: " + err.message, "red");
   }
 });
 
@@ -51,5 +51,5 @@ async function parseJSON(response) {
   }
   const text = await response.text();
   console.error("Respuesta no JSON:", text);
-  throw new Error("El servidor respondió HTML o formato inesperado.");
+  throw new Error("El servidor respondio HTML o formato inesperado.");
 }
