@@ -23,6 +23,27 @@ html, body {
     gap: 10px;
     z-index: 10;
 }
+.backArrow{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.home-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 2em;
+    color: #90b067;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+.backArrow:hover,
+.home-icon:hover { transform: scale(1.5); transition: transform 0.5s ease; }
 
 /* 🔹 Contenedor principal */
 .contenedor-padre {
@@ -181,7 +202,7 @@ input[type="file"] { display: none; }
 
 /* 🔹 Responsive */
 @media (max-width: 768px) {
-    .contenedor-padre { padding: 16px; margin: 10px; }
+    .contenedor-padre { padding: 64px 16px 16px; margin: 10px; }
     .contenedor { padding: 16px; }
     .username { flex-direction: column; align-items: flex-start; gap: 10px; }
     .profile-image-preview { width: 100px; height: 100px; }
@@ -195,7 +216,7 @@ input[type="file"] { display: none; }
 
 /* Ajuste extra para pantallas muy angostas */
 @media (max-width: 480px) {
-    .contenedor-padre { padding: 12px; margin: 8px; }
+    .contenedor-padre { padding: 64px 12px 12px; margin: 8px; }
     .contenedor { padding: 12px; }
     .form-row input { padding: 9px; border-radius: 40px; }
 }
