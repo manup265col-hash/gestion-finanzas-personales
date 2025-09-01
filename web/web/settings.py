@@ -98,7 +98,7 @@ ROOT_URLCONF = 'web.urls'  # Archivo principal de URLs
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates', # Motor de templates
-        'DIRS': [],   # Directorios adicionales de templates
+        'DIRS': [BASE_DIR / 'web' / 'templates'],   # Directorios adicionales de templates
         'APP_DIRS': True,  # Buscar templates dentro de cada app
         'OPTIONS': {
             'context_processors': [
