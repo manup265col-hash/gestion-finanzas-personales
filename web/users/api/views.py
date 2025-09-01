@@ -162,10 +162,10 @@ class PasswordResetRequestView(APIView):
         # Crea registro de token para ese usuario
         PasswordResetToken.objects.create(user=user, token=token)
 
-        # EnvÃƒÂ­a correo real usando SMTP configurado en settings.py
+        # Envia correo real usando SMTP configurado en settings.py
         send_mail(
-            subject="RecuperaciÃƒÂ³n de contraseÃƒÂ±a",
-            message=f"Tu cÃƒÂ³digo de recuperaciÃƒÂ³n es: {token}",
+            subject="Recupareción de contraseña - Gestion finanzas personales",
+            message=f"Tu codigo de verificación es: {token} \nSi no solicitaste este cambio, ignora este correo.",
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[email],
             fail_silently=True  # Evita 500 en producción si SMTP falla; siempre devolvemos JSON
