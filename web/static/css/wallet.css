@@ -13,13 +13,6 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url('ChatGPT\ Image\ Aug\ 6\,\ 2025\,\ 07_04_36\ AM.png');
-    background-color: rgb(197, 195, 195);
-    background-blend-mode: multiply;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: right;
-    background-attachment: fixed;
     font-family: "Lato", serif, sans-serif; 
   font-weight: 500;
   font-style: normal;
@@ -70,7 +63,6 @@ body{
   height: 72px;
   border-radius: 50%;
   border: 3px solid #a26127;
-  background-color: #f0f0f0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,7 +124,6 @@ div.contenedor-padre{
    border-radius: 500px;
    padding: 15px 15px;
    margin: 10px auto;
-   background-color: #a26127;
    color: #fefae0;
    border: none;
    cursor: pointer;
@@ -146,7 +137,6 @@ div.contenedor-padre{
     gap: 10px;
 }
 .contenedor .button input:hover{
-    background-color: #dda15e;
     transition: 0.3s;
 }
 
