@@ -1,3 +1,4 @@
+# -*- coding: latin-1 -*-
 # Importamos librerÃ­as necesarias
 import random  # Para generar cÃ³digos aleatorios de recuperaciÃ³n
 from rest_framework import status, permissions  # Para respuestas HTTP y permisos
