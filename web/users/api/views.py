@@ -166,19 +166,15 @@ class PasswordResetRequestView(APIView):
         PasswordResetToken.objects.create(user=user, token=token)
         
         # Enviar correo con plantilla (texto + HTML)
-        context = {"email": email, "token": token, "valid_minutes": 10, "app_name": "Gestion Finanzas Personales"}
-        subject = "Codigo de verificacion para restablecer tu contrasena"
-        text_body = render_to_string("emails/password_reset.txt", context)
-        html_body = render_to_string("emails/password_reset.html", context)
-        msg = EmailMultiAlternatives(subject=subject, body=text_body, from_email=settings.DEFAULT_FROM_EMAIL, to=[email])
-        msg.attach_alternative(html_body, "text/html")
-        try:
-            msg.send(fail_silently=True)
-        except Exception:
-            pass
-        
-        return Response({"message": "Te enviamos un codigo de verificacion a tu correo."}, status=200)
-
+        # Envia correo real usando SMTP configurado en settings.py
+        send_mail(
+            subject="Recuperacion de contrasena - Gestion finanzas personales",
+            message=f"Tu codigo de verificacion es: {token} \\nSi no solicitaste este cambio, ignora este correo.",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
+            fail_silently=True  # Evita 500 en produccion si SMTP falla; siempre devolvemos JSON
+        )
+        return Response({"message": "Se ha enviado un codigo al correo."}, status=200)
 # -----------------------------------------------------------
 # VERIFICACIÃƒÆ’Ã¢â‚¬Å“N DE TOKEN DE RECUPERACIÃƒÆ’Ã¢â‚¬Å“N
 # -----------------------------------------------------------
