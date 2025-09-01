@@ -10,6 +10,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (nameEl) nameEl.textContent = data.first_name || data.email || 'Usuario';
     }
   } catch (_) {}
+
+  // Tabs behavior
+  const tabs = document.querySelectorAll('.tab-btn');
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const target = document.querySelector(btn.dataset.target);
+      document.querySelectorAll('.tab-view').forEach(v => v.style.display = 'none');
+      if (target) target.style.display = 'block';
+    });
+  });
+
+  // Default to Fixed Income
+  const first = document.querySelector('.tab-btn');
+  if (first) first.click();
+
   // TODO: wire endpoints (IngresosFijos/Extra) and render into tables
 });
-

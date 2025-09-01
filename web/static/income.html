@@ -23,62 +23,76 @@
                 <i class="bi bi-person-circle"></i>
                 <h2 id="incomeUsername">Nombre</h2>
             </div>
-            <div class="fixView">
-            <table class="fixed-table">
-                <div class="fixedIncome">
-                    <input type="button" value="Fixed Income" id="fixIncm">
-                    <input type="button" value="Supplemental Income" id="suppIncm" onclick="document.querySelector('.suppView').style.display = 'block'; document.querySelector('.fixView').style.display = 'none';">
-                <tr>
-                    <th>Income</th>
-                    <th>Amount</th>
-                    <th>Periodicity</th>
-                </tr>
-                <tr>
-                    <td>Salary</td>
-                    <td>$3000</td>
-                    <td>Monthly</td>
-                </tr>
-                <tr>
-                    <td>Freelance Work</td>
-                    <td>$1500</td>
-                    <td>Biweekly</td>
-                </tr>
-                <tr>
-                    <td>Investment Returns</td>
-                    <td>$500</td>
-                    <td>Weekly</td>
-                </tr>
-                </div>
-            </table>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" data-target="#fixView">Fixed Income</button>
+                <button class="tab-btn" data-target="#suppView">Supplemental Income</button>
             </div>
-            <div class="suppView" style="display: none;">
-            <table class="supp-table">
-                <div class="suppIncome">
-                     <input type="button" value="Fixed Income" id="fixIncmSelect" onclick="document.querySelector('.fixView').style.display = 'block'; document.querySelector('.suppView').style.display = 'none';">
-                    <input type="button" value="Supplemental Income" id="suppIncmSelect">
-                <tr>
-                    <th>Income</th>
-                    <th>Amount</th>
-                    <th>Periodicity</th>
-                </tr>
-                <tr>
-                    <td>Salary</td>
-                    <td>$500</td>
-                    <td>Monthly</td>
-                </tr>
-                <tr>
-                    <td>Freelance Work</td>
-                    <td>$500</td>
-                    <td>Biweekly</td>
-                </tr>
-                <tr>
-                    <td>Investment Returns</td>
-                    <td>$500</td>
-                    <td>Weekly</td>
-                </tr>
-                </div>
-            </table>
+
+            <!-- Fixed income table -->
+            <div id="fixView" class="tab-view">
+              <div class="table-wrap">
+                <table class="fixed-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Owner</th>
+                      <th>Name</th>
+                      <th>Reason</th>
+                      <th>Quantity</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>user@mail.com</td>
+                      <td>Salary</td>
+                      <td>Main job</td>
+                      <td>3000</td>
+                      <td>2025-09-01</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>user@mail.com</td>
+                      <td>Bonus</td>
+                      <td>Quarterly bonus</td>
+                      <td>800</td>
+                      <td>2025-09-10</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
+
+            <!-- Supplemental income table -->
+            <div id="suppView" class="tab-view" style="display:none;">
+              <div class="table-wrap">
+                <table class="supp-table">
+                  <thead>
+                    <tr>
+                      <th>Income</th>
+                      <th>Amount</th>
+                      <th>Periodicity</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Freelance Work</td>
+                      <td>$1500</td>
+                      <td>Biweekly</td>
+                    </tr>
+                    <tr>
+                      <td>Investment Returns</td>
+                      <td>$500</td>
+                      <td>Weekly</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
             <div class="menu-list">
               <label for="fI">Income:</label></br>
               <div class="split-select">
