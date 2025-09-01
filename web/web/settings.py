@@ -314,8 +314,8 @@ if _cloudinary_url:
 
 # Incluir el frontend estático (web-Front) para servirlo con WhiteNoise
 try:
-    STATICFILES_DIRS = list(STATICFILES_DIRS)
+    STATICFILES_DIRS = list(STATICFILES_DIRS) + [BASE_DIR / 'web' / 'static']
 except NameError:
-    STATICFILES_DIRS = []
+    STATICFILES_DIRS = [BASE_DIR / 'web' / 'static']
 # La carpeta web-Front está a nivel de proyecto (hermana de BASE_DIR)
 """Frontend estático en web/static; sin configuración extra"""
