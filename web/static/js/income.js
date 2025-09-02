@@ -16,18 +16,18 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (/^https?:\/\//i.test(s)) return s;
       const path = s.startsWith('/') ? s : `/${s}`;
       return `${API_BASE}${path}`;
-  };
-    }
-  } catch (_) {}
-
-      try {
-      const url = resolveImageUrl(data && data.profile_image);
+  }
+   const url = resolveImageUrl(data && data.profile_image);
       if (url && imgEl && iconEl) {
         imgEl.onload = () => { imgEl.style.display = 'block'; iconEl.style.display = 'none'; };
         imgEl.onerror = () => { imgEl.style.display = 'none'; iconEl.style.display = 'block'; };
         imgEl.src = url + (url.includes('?') ? `&t=${Date.now()}` : `?t=${Date.now()}`);
       }
-    } catch (_) {}
+    }
+  } catch (_) {}
+
+    
+   
 
   // Tabs behavior
   const tabs = document.querySelectorAll('.tab-btn');
