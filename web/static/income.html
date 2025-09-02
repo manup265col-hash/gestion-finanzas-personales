@@ -20,7 +20,10 @@
     <div class="contenedor-padre">
         <div class="contenedor">
             <div class="username">
-                <i class="bi bi-person-circle"></i>
+                <div class="profile-image-preview">
+                    <i class="bi bi-person" id="walletProfileIcon"></i>
+                    <img id="walletProfileImage" alt="Profile image" loading="eager" decoding="async">
+                </div>
                 <h2 id="incomeUsername">Nombre</h2>
             </div>
 
@@ -115,8 +118,10 @@
                 <input type="button" id="Log-btn" value="Log Income" onclick="location.href='logIncome.html'">
             </div>
         </div>
-    </div>       
+    </div>     
+    <!--  
     <script src="js/config.js"></script>
     <script src="js/income.js"></script>
+    -->
 </body>
 </html>

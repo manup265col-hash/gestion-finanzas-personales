@@ -14,15 +14,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    
-    
-    
-    
-    
-    
     font-family: "Lato", serif, sans-serif; 
-  font-weight: 500;
+    font-weight: 500;
 }
 .top-bar {
     position: fixed;
@@ -62,6 +55,29 @@ body{
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+/* Avatar similar a home */
+.profile-image-preview {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3px solid #a26127;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: 2.2em;
+  color: #a26127;
+  flex-shrink: 0;
+}
+
+#walletProfileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: none;
 }
 
 /* Tabs (pestañas) */
@@ -205,7 +221,6 @@ label{
 
 /* Arrow box */
 .split-select::after {
-  content: "Ã¢â€“Â¼"; /* you can replace with SVG */
   position: fixed;
   top: 0;
   right: 0;
