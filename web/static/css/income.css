@@ -261,7 +261,7 @@ label{
     margin: 20px 0px 0px 0px;
     display: inline;
     border-radius: 20px 20px 0px 0px;
-    
+    background-color: #606C38;
     color: #0c0c0c;
     border: none;
     cursor: pointer;
@@ -272,12 +272,12 @@ label{
 }
 #suppIncm:hover,
 #fixIncmSelect:hover{
-    
+    background-color: #dceda19a;
     transition: 0.5s;
 }
 #fixIncmSelect,
 #suppIncm {
-   
+   background-color: #606c389f;
 }
 .suppIncome,
 .fixIncome {

@@ -29,8 +29,8 @@
 
             <!-- Tabs -->
             <div class="tabs">
-                <button class="tab-btn active" data-target="#fixView">Fixed Income</button>
-                <button class="tab-btn" data-target="#suppView">Supplemental Income</button>
+              <input type="button" value="Fixed Income" id="fixIncm">
+              <input type="button" value="Supplemental Income" id="suppIncm" onclick="document.querySelector('.suppView').style.display = 'block'; document.querySelector('.fixView').style.display = 'none';">
             </div>
 
             <!-- Fixed income table -->
@@ -122,6 +122,6 @@
     
     <script src="js/config.js"></script>
     <script src="js/income.js"></script>
-    
+
 </body>
 </html>
