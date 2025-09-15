@@ -11,7 +11,7 @@ from ingresos.api.serializers import IngresosFijosSerializer, IngresosExtraSeria
 @method_decorator(name='list', decorator=swagger_auto_schema(tags=['Ingresos'], operation_summary='Listar ingresos fijos', responses={200: IngresosFijosSerializer(many=True)}))
 @method_decorator(name='create', decorator=swagger_auto_schema(tags=['Ingresos'], operation_summary='Crear ingreso fijo', request_body=openapi.Schema(
     type=openapi.TYPE_OBJECT,
-    required=['name','reason','quantity'],
+    required=['name','reason','quantity','period'],
     properties={
         'name': openapi.Schema(type=openapi.TYPE_STRING, example='Salario'),
         'reason': openapi.Schema(type=openapi.TYPE_STRING, example='Pago mensual'),
