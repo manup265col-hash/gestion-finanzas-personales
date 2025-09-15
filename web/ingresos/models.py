@@ -10,7 +10,7 @@ class IngresosFijos(models.Model):
     # Amount of the fixed income
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
     # Period label (e.g., 'Mensual', 'Anual')
-    period = models.CharField(max_length=100, default='Mensual')
+    period = models.CharField(max_length=100)
        
     class Meta:
         verbose_name_plural = "Ingresos Fijos"
