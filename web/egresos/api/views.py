@@ -10,7 +10,7 @@ from egresos.api.serializers import EgresosFijosSerializer, EgresosExtraSerializ
 @method_decorator(name='list', decorator=swagger_auto_schema(tags=['Egresos'], operation_summary='Listar egresos fijos', responses={200: EgresosFijosSerializer(many=True)}))
 @method_decorator(name='create', decorator=swagger_auto_schema(tags=['Egresos'], operation_summary='Crear egreso fijo', request_body=openapi.Schema(
     type=openapi.TYPE_OBJECT,
-    required=['name','reason','quantity'],
+    required=['name','reason','quantity', 'period'],
     properties={
         'name': openapi.Schema(type=openapi.TYPE_STRING, example='Renta'),
         'reason': openapi.Schema(type=openapi.TYPE_STRING, example='Alquiler'),
