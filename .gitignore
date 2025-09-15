@@ -1,2 +1,15 @@
-# Created by venv; see https://docs.python.org/3/library/venv.html
+# Entornos virtuales
+venv/
+env/
+Lib/
+Scripts/
 
+# Archivos compilados
+*.pyc
+__pycache__/
+
+# Base de datos local
+*.sqlite3
+
+# Configuración local / variables de entorno
+.env

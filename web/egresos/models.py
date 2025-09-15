@@ -8,7 +8,7 @@ class EgresosFijos(models.Model):
     name = models.CharField(max_length=255)
     reason = models.TextField()
     quantity = models.DecimalField(max_digits=10, decimal_places=2)  # Agrega max_digits
-    period = models.CharField(max_length=100, default='Mensual')  # Por ejemplo: 'Mensual', 'Anual'
+    period = models.CharField(max_length=100)  # Por ejemplo: 'Mensual', 'Anual'
        
     class Meta:
         verbose_name_plural = "Egresos Fijos"
